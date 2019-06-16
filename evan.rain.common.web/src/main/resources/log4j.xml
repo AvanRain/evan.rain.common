@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration>
+
+    <!-- 将日志信息输出到控制台 -->
+    <appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+        <!-- 设置日志输出的样式 -->
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d %-5p [%t] %C{2} (%F:%L) - %m%n"/>
+        </layout>
+        <!--过滤器设置输出的级别-->
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <!-- 设置日志输出的最小级别 -->
+            <param name="levelMin" value="WARN" />
+            <!-- 设置日志输出的最大级别 -->
+            <param name="levelMax" value="ERROR" />
+            <!-- 设置日志输出的xxx，默认是false -->
+            <param name="AcceptOnMatch" value="true" />
+        </filter>
+    </appender>
+    
+    <appender name="FILE" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+        <param name="Append" value="true"/>
+        <param name="file" value="/export/home/tomcat/logs/wanyus.log"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d %-5p [%t] %C{2} (%F:%L) - %m%n"/>
+        </layout>
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="LevelMin" value="ERROR"/>
+            <!--<param name="LevelMax" value="FATAL "/>-->
+        </filter>
+    </appender>
+
+    <root>
+        <priority value="ERROR"/>
+        <appender-ref ref="CONSOLE"/>       
+        <appender-ref ref="FILE"/>
+    </root>
+    
+</log4j:configuration>
